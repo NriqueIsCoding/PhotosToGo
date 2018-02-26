@@ -1,0 +1,47 @@
+<%= form_with model: picture, local: true,  html:{multipart: true} do |form| %>
+  <% if picture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+
+      <ul>
+      <% picture.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :picture_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url, id: :picture_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo %>
+    <%= form.file_field :photo, id: :gallery_image %>
+  </div>
+
+  <% if @gallery.nil? %>
+    <div class="field">
+      <%= form.label :gallery_id %>
+      <%= form.text_field :gallery_id %>
+    </div>
+
+  <% else %>
+   <%= form.hidden_field :gallery_id, value: @gallery.id %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%#= form_for @user, url: users_path, html: { multipart: true } do |form| %>
+  <%#= form.file_field :avatar %>
+  <%#= form.submit %>
+<%# end %>
